@@ -1,6 +1,6 @@
 from supply_log import supply_log
 
-def failed_max_auth_attempts():
+def failed_auth_attempts():
     try:
         ip_username_count = {}
         for log in supply_log():
