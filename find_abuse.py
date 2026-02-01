@@ -18,6 +18,7 @@ def check_valid_argument():
     if len(sys.argv)!=3:
         print("The argument must include <limit> <linear|top>")
         sys.exit(1)
+    return True
 # ==================================================================
 def argument_parsing():
     # starting with try block to handle integer converion issues to <limit>
@@ -50,13 +51,17 @@ def return_count(record):
 
 def linear_auth_abuse(limit):
     if limit:
+        # The itertools.islice() is used to limit how much data to be print in linear manner limit-value
         for item in itertools.islice(result.items(), limit):
+            # the key is tuple set on auth_faile script method is : failed_auth_attempts
             (ip,username), counts = item
             print(f"ip : {ip:15}    username : {username:15}    attempts : {counts}")
 
 def top_auth_abuse(limit):
+    # sorting the result dict in descending order to to get top 10 or top 20 
     sorted_dict = sorted(result.items(), key=return_count, reverse=True)
     if limit:
+        # same itertools to limit how much need to print
         for item in itertools.islice(sorted_dict, limit):
             (ip,username) , counts = item
             print(f"ip : {ip:15}    username : {username:15}    attempts : {counts}")
@@ -65,6 +70,9 @@ def top_auth_abuse(limit):
 # ============================ RESULTING =============================
 def print_result():
     try :
+        # calling and gether the argument limit , and which method 
+        # the method here helps to detect which method we need to call 
+        # wheathe it is linear_auth_abuse or top_auth_abuse by the methodName argument
         limit , methodName = argument_parsing()
         if methodName == 'top':
             top_auth_abuse(limit)
@@ -73,5 +81,6 @@ def print_result():
     except Exception as e:
         print(e)
 # =======================================================================
-print_result()                                                          #
+if check_valid_argument():
+    print_result()
 # =======================================================================
