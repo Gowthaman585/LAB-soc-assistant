@@ -23,7 +23,7 @@ From the above image you can see that a list of user who accessed the specific f
 Through this tool we can infer more specific upto the specific user level access for the particular file.  
 ***python3 find_access.py /usr ubuntu***  
 But the real handy things is this method help to list down what are all the different privileages used by the user.  
-![picture2](images/find_access.pnt)  
+![picture2](images/find_access.png)  
   
 #### =================  
 ## **find_abuse.py**  
